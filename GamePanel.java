@@ -78,10 +78,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-
     public void startGame() {
         timer.start();
     }
+
     private void drawScore(Graphics g) {
         String scoreStr = String.valueOf(score);
         int scoreLength = scoreStr.length();
@@ -111,7 +111,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                     score++;
                     soundManager.playPointSound();
                 }
-
 
                 // Update background and floor positions
                 backgroundX1 -= BACKGROUND_SPEED;
@@ -167,26 +166,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.drawImage(backgroundImage, backgroundX2, 0, WIDTH, HEIGHT, this);
 
         if (gameState == GameState.START_SCREEN) {
-            // Draw the bird in the starting position
-//            bird.draw(g);
-
-            // Draw the start screen overlay image instead of text
+            // Draw the start screen overlay image
             if (startScreenImage != null) {
                 int overlayWidth = startScreenImage.getWidth() + 15;
                 int overlayHeight = startScreenImage.getHeight() + 90;
                 g.drawImage(startScreenImage, (WIDTH - overlayWidth) / 2, (HEIGHT - overlayHeight) / 2, this);
             }
         } else if (gameState == GameState.PLAYING || gameState == GameState.GAME_OVER) {
-            // Draw the bird and pipes first
+            // Draw the bird and pipes
             bird.draw(g);
             pipeManager.draw(g, pipeImage);
 
-            // Draw the score using images (if playing)
+            // Draw the score if playing
             if (gameState == GameState.PLAYING) {
                 drawScore(g);
             }
 
-            // If game over, draw the game over popup image
+            // Draw the game over popup image
             if (gameState == GameState.GAME_OVER && gameOverImage != null) {
                 int gameOverWidth = gameOverImage.getWidth() + 15;
                 int gameOverHeight = gameOverImage.getHeight() + 90;
@@ -204,11 +200,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.drawImage(floorImage, floorX1, HEIGHT - floorImage.getHeight(), WIDTH, floorImage.getHeight(), this);
         g.drawImage(floorImage, floorX2, HEIGHT - floorImage.getHeight(), WIDTH, floorImage.getHeight(), this);
     }
-
-
-
-
-
 
     @Override
     public void keyPressed(KeyEvent e) {
